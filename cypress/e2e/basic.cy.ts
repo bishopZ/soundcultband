@@ -1,8 +1,8 @@
 describe('Basic E2E Test', () => {
-  it('should load the login page', () => {
+  it('should load the home page', () => {
     cy.visit('/');
-    cy.url().should('include', '/login');
-    cy.contains('2026 Boilerplate').should('be.visible');
+    cy.url().should('not.include', '/login');
+    cy.contains('Soundcult').should('be.visible');
   });
 
   it('should allow user to login', () => {
@@ -15,9 +15,9 @@ describe('Basic E2E Test', () => {
     // Submit the form
     cy.get('button[type="submit"]').click();
 
-    // Should redirect to home page after successful login
+    // Should redirect to product page after successful login
     cy.url().should('not.include', '/login');
-    cy.contains('Welcome to the 2026 Boilerplate!').should('be.visible');
+    cy.url().should('include', '/product');
   });
 });
 

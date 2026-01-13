@@ -9,7 +9,6 @@ import Home from './pages/Home';
 
 // Lazy load pages for better performance
 const Product = lazy(() => import('./pages/Product'));
-const About = lazy(() => import('./pages/About'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => {
@@ -28,7 +27,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

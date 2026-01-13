@@ -18,12 +18,6 @@ export const getSitemap = (req: Request, res: Response): void => {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 </urlset>`;
 
   res.set('Content-Type', 'application/xml');

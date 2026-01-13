@@ -1,13 +1,13 @@
 {
-  "name": "2026-boilerplate",
-  "description": "a local-first web app boilerplate for 2026",
+  "name": "soundcult-band",
+  "description": "Official website for Soundcult band",
   "author": "BishopZ",
   "private": true,
-  "version": "1.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bishopz/2026-boilerplate"
+    "url": "https://github.com/bishopz/soundcultband"
   },
   "type": "module",
   "scripts": {

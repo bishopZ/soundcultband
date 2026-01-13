@@ -1,3 +1,3 @@
 // The identifier used in local storage
-export const LOCAL_STORAGE_ID = '2026-Boilerplate';
+export const LOCAL_STORAGE_ID = 'Soundcult-Band';
 

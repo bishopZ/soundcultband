@@ -7,21 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2025-01-XX
+
 ### Added
 
-+ Added proper SEO metadata to the index page.
-+ Added a sitemap.xml file for public pages.
++ Initial release of Soundcult band website
++ Single-page public marketing site
++ Private admin site with authentication
 
 ### Changed
 
-+ Make header and footer into reusable components.
-+ Update the user flow with a proper home page before login.
-
-### Deprecated
-### Removed
-### Fixed
-
-+ Fixed a bug that prevented it from loading without any saved data. Cold start now working as expected.
++ Rebranded from boilerplate to Soundcult band website
++ Public site now shows single-page marketing content
++ Removed public login links (login remains accessible but unlinked)
 
 ### Security
 

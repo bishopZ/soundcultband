@@ -6,19 +6,8 @@ export const PublicHeader = () => {
     <Box as="header" bg="gray.100" py={4} px={8} boxShadow="sm">
       <Flex justify="space-between" align="center">
         <Heading as="h1" size="lg">
-          <RouterLink to="/">2026 Boilerplate</RouterLink>
+          <RouterLink to="/">Soundcult</RouterLink>
         </Heading>
-        <Flex gap={4}>
-          <Button as={RouterLink} asChild variant="ghost">
-            <RouterLink to="/">Home</RouterLink>
-          </Button>
-          <Button as={RouterLink} asChild variant="ghost">
-            <RouterLink to="/about">About</RouterLink>
-          </Button>
-          <Button asChild variant="ghost">
-            <a href="/login">Login</a>
-          </Button>
-        </Flex>
       </Flex>
     </Box>
   );
@@ -29,7 +18,7 @@ export const PrivateHeader = () => {
     <Box as="header" bg="gray.100" py={4} px={8} boxShadow="sm">
       <Flex justify="space-between" align="center">
         <Heading as="h1" size="lg">
-          <RouterLink to="/product">2026 Boilerplate</RouterLink>
+          <RouterLink to="/product">Soundcult</RouterLink>
         </Heading>
         <Flex gap={4}>
           <Button as={RouterLink} asChild variant="ghost">

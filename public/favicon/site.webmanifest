@@ -1,7 +1,7 @@
 {
-  "name": "2026 Boilerplate",
-  "short_name": "2026 Boilerplate",
-  "description": "A local-first boilerplate for 2026",
+  "name": "Soundcult",
+  "short_name": "Soundcult",
+  "description": "Official website for Soundcult band",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
