@@ -17,7 +17,7 @@ export const ErrorPage = ({ message }: { message: string }) => {
           </Link>
           .
         </Text>
-        <Text fontSize="md" color="gray.600">
+        <Text fontSize="md" color="gray.200">
           {message}
         </Text>
       </Box>

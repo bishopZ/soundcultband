@@ -18,3 +18,8 @@ NODE_ENV=development
 # Server Port (optional, defaults to 3000)
 # PORT=3000
 
+# Admin Authentication
+# Username and password for accessing the admin section
+# Replace with your desired admin credentials
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="your-admin-password-here"

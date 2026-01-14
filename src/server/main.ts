@@ -11,6 +11,7 @@ import { sessionConfig } from './config/session';
 import authRoutes from './routes/auth';
 import apiRoutes from './routes/api';
 import pageRoutes from './routes/pages';
+import { ensureEventsFile } from './services/events';
 
 declare module 'express-session' {
   /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
@@ -56,6 +57,9 @@ const setupRoutes = (app: express.Application) => {
 };
 
 const startServer = () => {
+  // Initialize events file if it doesn't exist
+  ensureEventsFile();
+
   const app = express();
 
   setupMiddleware(app);

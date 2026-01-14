@@ -11,16 +11,16 @@ const About = () => {
       <Container maxW="container.md" py={8}>
         <VStack gap={6} align="stretch">
           <Box>
-            <Heading as="h1" size="2xl" mb={4}>
+            <Heading as="h1" size="2xl" mb={4} color="white">
               About 2026 Boilerplate
             </Heading>
-            <Text fontSize="lg" color="gray.600" mb={4}>
+            <Text fontSize="lg" color="gray.200" mb={4}>
               A sophisticated starting point for building modern web applications.
             </Text>
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={3}>
+            <Heading as="h2" size="lg" mb={3} color="white">
               Features
             </Heading>
             <List.Root gap={3}>

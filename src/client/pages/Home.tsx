@@ -1,59 +1,153 @@
+import { useState, useEffect, useRef } from 'react';
 import { Box, Container, Heading, Text, VStack } from '@chakra-ui/react';
 import { Footer } from '../components/layout/footer';
-import { PublicHeader } from '../components/layout/header';
+
+interface Event {
+  id: string;
+  venue: string;
+  date: string;
+  time: string;
+  description: string;
+}
 
 const Home = () => {
+  const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleCanPlayThrough = () => {
+      setVideoReady(true);
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    video.load();
+
+    return () => {
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setEventsLoading(true);
+        const response = await fetch('/api/events/public');
+        if (response.ok) {
+          const data = await response.json();
+          setEvents(data);
+        }
+      } catch (error) {
+        // Silently fail - if no events, we just don't show the section
+         
+        console.error('Failed to fetch events:', error);
+      } finally {
+        setEventsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const formatDateTime = (date: string, time: string) => {
+    const dateObj = new Date(`${date}T${time}`);
+    return dateObj.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <>
-      <PublicHeader />
+      {/* Hero Section */}
+      <Box
+        position="relative"
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        bg="black"
+        py={0}
+      >
+        {/* Image Fallback */}
+        <img
+          src="/images/soundcult.png"
+          alt="Soundcult"
+          style={{
+            maxWidth: '1920px',
+            width: '100%',
+            height: 'auto',
+            display: videoReady ? 'none' : 'block',
+            opacity: videoReady ? 0 : 1,
+            transition: 'opacity 0.5s ease-in-out',
+          }}
+        />
+
+        {/* Video */}
+        <video
+          ref={videoRef}
+          src="/video/GOLD WATER LION_PR.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            maxWidth: '1920px',
+            width: '100%',
+            height: 'auto',
+            display: videoReady ? 'block' : 'none',
+            opacity: videoReady ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out',
+          }}
+        />
+      </Box>
+
       <Container maxW="container.lg" py={12}>
         <VStack gap={12} align="stretch">
-          {/* Hero Section */}
-          <Box textAlign="center" py={8}>
-            <Heading as="h1" size="3xl" mb={4}>
-              Soundcult
-            </Heading>
-            <Text fontSize="xl" color="gray.600" maxW="2xl" mx="auto">
-              Welcome to the official website of Soundcult. Experience our music and stay connected with our latest updates.
-            </Text>
-          </Box>
+          {/* Updates Section */}
+          {!eventsLoading && events.length > 0 && (
+            <Box>
+              <Heading as="h2" size="xl" mb={4} color="white">
+                Upcoming Events
+              </Heading>
+              <VStack align="stretch" gap={4}>
+                {events.map(event => (
+                  <Box key={event.id}>
+                    <Heading as="h3" size="md" mb={2} color="white">
+                      {event.venue}
+                    </Heading>
+                    <Text color="gray.300" fontSize="sm" mb={2}>
+                      {formatDateTime(event.date, event.time)}
+                    </Text>
+                    <Text color="gray.200">{event.description}</Text>
+                  </Box>
+                ))}
+              </VStack>
+            </Box>
+          )}
 
-          {/* About Section */}
+          {/* About and Contact Section */}
           <Box>
-            <Heading as="h2" size="xl" mb={4}>
+            <Heading as="h2" size="xl" mb={4} color="white">
               About
             </Heading>
-            <Text fontSize="lg" color="gray.700" lineHeight="tall">
+            <Text fontSize="lg" color="gray.200" lineHeight="tall" mb={6}>
               Soundcult is a band dedicated to creating powerful and immersive musical experiences.
               With a unique sound that blends multiple genres, we strive to connect with our audience
               through meaningful compositions and performances.
             </Text>
-          </Box>
-
-          {/* Updates Section */}
-          <Box>
-            <Heading as="h2" size="xl" mb={4}>
-              Updates
-            </Heading>
-            <VStack align="stretch" gap={4}>
-              <Box>
-                <Heading as="h3" size="md" mb={2}>
-                  Latest News
-                </Heading>
-                <Text color="gray.700">
-                  Stay tuned for upcoming releases, tour dates, and exclusive content.
-                  Follow us for the latest updates and behind-the-scenes content.
-                </Text>
-              </Box>
-            </VStack>
-          </Box>
-
-          {/* Contact Section */}
-          <Box>
-            <Heading as="h2" size="xl" mb={4}>
+            <Heading as="h2" size="xl" mb={4} color="white">
               Contact
             </Heading>
-            <Text fontSize="lg" color="gray.700" lineHeight="tall">
+            <Text fontSize="lg" color="gray.200" lineHeight="tall">
               For inquiries, bookings, and collaborations, please reach out through our official channels.
             </Text>
           </Box>
