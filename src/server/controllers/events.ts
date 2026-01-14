@@ -12,7 +12,7 @@ export const getAllEvents: RequestHandler = (_, res) => {
     console.log('Returning events:', events);
     res.json(events);
   } catch (error) {
-    // eslint-disable-next-line no-console
+     
     console.error('Error in getAllEvents:', error);
     res.status(500).json({ error: 'Failed to read events' });
   }

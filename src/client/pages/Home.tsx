@@ -9,7 +9,7 @@ interface Event {
   time: string;
   description: string;
 }
-
+/* eslint-disable-next-line max-lines-per-function */
 const Home = () => {
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -25,9 +25,15 @@ const Home = () => {
     };
 
     video.addEventListener('canplaythrough', handleCanPlayThrough);
-    video.load();
+
+    // Delay video loading slightly to prioritize API requests
+    // This ensures events load first on slow connections
+    const videoLoadTimeout = setTimeout(() => {
+      video.load();
+    }, 100);
 
     return () => {
+      clearTimeout(videoLoadTimeout);
       video.removeEventListener('canplaythrough', handleCanPlayThrough);
     };
   }, []);
@@ -36,6 +42,7 @@ const Home = () => {
     const fetchEvents = async () => {
       try {
         setEventsLoading(true);
+        // Fetch events immediately - this request gets priority over media files
         const response = await fetch('/api/events/public');
         if (response.ok) {
           const data = await response.json();
@@ -43,13 +50,13 @@ const Home = () => {
         }
       } catch (error) {
         // Silently fail - if no events, we just don't show the section
-         
         console.error('Failed to fetch events:', error);
       } finally {
         setEventsLoading(false);
       }
     };
 
+    // Start fetching immediately with high priority
     fetchEvents();
   }, []);
 
@@ -81,6 +88,8 @@ const Home = () => {
         <img
           src="/images/soundcult.png"
           alt="Soundcult"
+          loading="lazy"
+          fetchPriority="low"
           style={{
             maxWidth: '1920px',
             width: '100%',
@@ -94,11 +103,12 @@ const Home = () => {
         {/* Video */}
         <video
           ref={videoRef}
-          src="/video/GOLD WATER LION_PR.mp4"
+          src="/video/GOLD WATER LION_PR_sm.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="none"
           style={{
             maxWidth: '1920px',
             width: '100%',
@@ -112,12 +122,14 @@ const Home = () => {
 
       <Container maxW="container.lg" py={12}>
         <VStack gap={12} align="stretch">
-          {/* Updates Section */}
-          {!eventsLoading && events.length > 0 && (
-            <Box>
-              <Heading as="h2" size="xl" mb={4} color="white">
-                Upcoming Events
-              </Heading>
+          {/* Updates Section - Always render, show loading state */}
+          <Box>
+            <Heading as="h2" size="xl" mb={4} color="white">
+              Upcoming Events
+            </Heading>
+            {eventsLoading ? (
+              <Text color="gray.300">Loading events...</Text>
+            ) : events.length > 0 ? (
               <VStack align="stretch" gap={4}>
                 {events.map(event => (
                   <Box key={event.id}>
@@ -131,8 +143,10 @@ const Home = () => {
                   </Box>
                 ))}
               </VStack>
-            </Box>
-          )}
+            ) : (
+              <Text color="gray.300">No upcoming events at this time.</Text>
+            )}
+          </Box>
 
           {/* About and Contact Section */}
           <Box>
