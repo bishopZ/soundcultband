@@ -123,31 +123,32 @@ const Home = () => {
 
       <Container maxW="640px" py={12}>
         <VStack gap={12} align="stretch">
-          {/* Updates Section - Always render, show loading state */}
-          <Box>
-            <Heading as="h2" size="xl" mb={4} color="white">
-              Upcoming Events
-            </Heading>
-            {eventsLoading ? (
-              <Text color="gray.300">Loading events...</Text>
-            ) : events.length > 0 ? (
-              <VStack align="stretch" gap={4}>
-                {events.map(event => (
-                  <Box key={event.id}>
-                    <Heading as="h3" size="md" mb={2} color="white">
-                      {event.venue}
-                    </Heading>
-                    <Text color="gray.300" fontSize="sm" mb={2}>
-                      {formatDateTime(event.date, event.time)}
-                    </Text>
-                    <Text color="gray.200">{event.description}</Text>
-                  </Box>
-                ))}
-              </VStack>
-            ) : (
-              <Text color="gray.300">No upcoming events at this time.</Text>
-            )}
-          </Box>
+          {/* Upcoming Events Section - Only show if events exist or loading */}
+          {(eventsLoading || events.length > 0) && (
+            <Box>
+              <Heading as="h2" size="xl" mb={4} color="white">
+                Upcoming Events
+              </Heading>
+              {eventsLoading && (
+                <Text color="gray.300">Loading events...</Text>
+              )}
+              {!eventsLoading && events.length > 0 && (
+                <VStack align="stretch" gap={4}>
+                  {events.map(event => (
+                    <Box key={event.id}>
+                      <Heading as="h3" size="md" mb={2} color="white">
+                        {event.venue}
+                      </Heading>
+                      <Text color="gray.300" fontSize="sm" mb={2}>
+                        {formatDateTime(event.date, event.time)}
+                      </Text>
+                      <Text color="gray.200">{event.description}</Text>
+                    </Box>
+                  ))}
+                </VStack>
+              )}
+            </Box>
+          )}
 
           {/* About and Contact Section */}
           <Box>
