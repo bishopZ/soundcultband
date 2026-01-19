@@ -159,11 +159,8 @@ const Home = () => {
               With a unique sound that blends multiple genres, we strive to connect with our audience
               through meaningful compositions and performances.
             </Text>
-            <Heading as="h2" size="xl" mb={4} color="white">
-              Contact
-            </Heading>
             <Text fontSize="lg" color="gray.200" lineHeight="tall">
-              For inquiries, bookings, and collaborations, please reach out through our official channels.
+              For inquiries, bookings, and collaborations, please reach out info@[this domain].com.
             </Text>
           </Box>
         </VStack>
