@@ -9,6 +9,7 @@ interface Event {
   time: string;
   description: string;
 }
+
 /* eslint-disable-next-line max-lines-per-function */
 const Home = () => {
   const [videoReady, setVideoReady] = useState(false);
