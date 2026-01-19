@@ -121,7 +121,7 @@ const Home = () => {
         />
       </Box>
 
-      <Container maxW="container.lg" py={12}>
+      <Container maxW="640px" py={12}>
         <VStack gap={12} align="stretch">
           {/* Updates Section - Always render, show loading state */}
           <Box>
