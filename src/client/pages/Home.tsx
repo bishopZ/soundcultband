@@ -104,7 +104,7 @@ const Home = () => {
         {/* Video */}
         <video
           ref={videoRef}
-          src="/video/GOLD WATER LION_PR_sm.mp4"
+          src="/video/GOLD WATER LION_PR.mp4"
           autoPlay
           muted
           loop
