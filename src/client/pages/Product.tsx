@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Footer } from '../components/layout/footer';
 import { PrivateHeader } from '../components/layout/header';
+import { COLORS } from '../shared/constants';
 
 interface Event {
   id: string;
@@ -149,7 +150,7 @@ const Product = () => {
         <VStack gap={6} align="stretch">
           <Box>
             <HStack justify="space-between" align="center" mb={4}>
-              <Heading as="h1" size="2xl" color="white">
+              <Heading as="h1" size="2xl" color={COLORS.TEXT}>
                 Events Management
               </Heading>
               <Button colorScheme="blue" onClick={handleAddClick} disabled={showForm}>
@@ -159,7 +160,7 @@ const Product = () => {
           </Box>
 
           {error && (
-            <Box bg="red.500" color="white" p={4} borderRadius="md">
+            <Box bg="red.500" color={COLORS.TEXT} p={4} borderRadius="md">
               {error}
             </Box>
           )}
@@ -167,12 +168,12 @@ const Product = () => {
           {showForm && (
             <Box bg="gray.800" p={6} borderRadius="md" border="1px" borderColor="gray.700">
               <VStack gap={4} align="stretch">
-                <Heading as="h2" size="lg" color="white">
+                  <Heading as="h2" size="lg" color={COLORS.TEXT}>
                   {editingEvent ? 'Edit Event' : 'Add Event'}
                 </Heading>
 
                 <Box>
-                  <Text mb={2} color="white" fontWeight="medium">
+                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
                     Venue *
                   </Text>
                   <Input
@@ -180,13 +181,13 @@ const Product = () => {
                     onChange={event => { setFormData({ ...formData, venue: event.target.value }); }}
                     placeholder="Enter venue name"
                     bg="gray.700"
-                    color="white"
+                    color={COLORS.TEXT}
                     borderColor="gray.600"
                   />
                 </Box>
 
                 <Box>
-                  <Text mb={2} color="white" fontWeight="medium">
+                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
                     Date *
                   </Text>
                   <Input
@@ -194,13 +195,13 @@ const Product = () => {
                     value={formData.date}
                     onChange={event => { setFormData({ ...formData, date: event.target.value }); }}
                     bg="gray.700"
-                    color="white"
+                    color={COLORS.TEXT}
                     borderColor="gray.600"
                   />
                 </Box>
 
                 <Box>
-                  <Text mb={2} color="white" fontWeight="medium">
+                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
                     Time *
                   </Text>
                   <Input
@@ -208,13 +209,13 @@ const Product = () => {
                     value={formData.time}
                     onChange={event => { setFormData({ ...formData, time: event.target.value }); }}
                     bg="gray.700"
-                    color="white"
+                    color={COLORS.TEXT}
                     borderColor="gray.600"
                   />
                 </Box>
 
                 <Box>
-                  <Text mb={2} color="white" fontWeight="medium">
+                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
                     Description *
                   </Text>
                   <Textarea
@@ -223,7 +224,7 @@ const Product = () => {
                     placeholder="Enter event description"
                     rows={4}
                     bg="gray.700"
-                    color="white"
+                    color={COLORS.TEXT}
                     borderColor="gray.600"
                   />
                 </Box>
@@ -258,7 +259,7 @@ const Product = () => {
                   <VStack align="stretch" gap={2}>
                     <HStack justify="space-between" align="start">
                       <VStack align="start" gap={1} flex={1}>
-                        <Heading as="h3" size="md" color="white">
+                        <Heading as="h3" size="md" color={COLORS.TEXT}>
                           {event.venue}
                         </Heading>
                         <Text color="gray.300" fontSize="sm">

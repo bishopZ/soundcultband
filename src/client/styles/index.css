@@ -1,6 +1,12 @@
 /* Put custom CSS here, if needed */
+:root {
+  --color-background: #050803;
+  --color-text: #FDFAF7;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box, Container, Heading, Text, VStack } from '@chakra-ui/react';
 import { Footer } from '../components/layout/footer';
+import { COLORS } from '../shared/constants';
 
 interface Event {
   id: string;
@@ -82,7 +83,7 @@ const Home = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        bg="black"
+        bg={COLORS.BACKGROUND}
         py={0}
       >
         {/* Image Fallback */}
@@ -126,7 +127,7 @@ const Home = () => {
           {/* Upcoming Events Section - Only show if events exist or loading */}
           {(eventsLoading || events.length > 0) && (
             <Box>
-              <Heading as="h2" size="xl" mb={4} color="white">
+              <Heading as="h2" size="xl" mb={4} color={COLORS.TEXT}>
                 Upcoming Events
               </Heading>
               {eventsLoading && (
@@ -136,7 +137,7 @@ const Home = () => {
                 <VStack align="stretch" gap={4}>
                   {events.map(event => (
                     <Box key={event.id}>
-                      <Heading as="h3" size="md" mb={2} color="white">
+                      <Heading as="h3" size="md" mb={2} color={COLORS.TEXT}>
                         {event.venue}
                       </Heading>
                       <Text color="gray.300" fontSize="sm" mb={2}>
@@ -152,7 +153,7 @@ const Home = () => {
 
           {/* About and Contact Section */}
           <Box>
-            <Heading as="h2" size="xl" mb={4} color="white">
+            <Heading as="h2" size="xl" mb={4} color={COLORS.TEXT}>
               About
             </Heading>
             <Text fontSize="lg" color="gray.200" lineHeight="tall" mb={6}>

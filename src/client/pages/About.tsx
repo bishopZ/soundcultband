@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { FiCheck } from 'react-icons/fi';
 import { Footer } from '../components/layout/footer';
 import { PublicHeader } from '../components/layout/header';
+import { COLORS } from '../shared/constants';
 
 const About = () => {
   return (
@@ -11,7 +12,7 @@ const About = () => {
       <Container maxW="container.md" py={8}>
         <VStack gap={6} align="stretch">
           <Box>
-            <Heading as="h1" size="2xl" mb={4} color="white">
+            <Heading as="h1" size="2xl" mb={4} color={COLORS.TEXT}>
               About 2026 Boilerplate
             </Heading>
             <Text fontSize="lg" color="gray.200" mb={4}>
@@ -20,7 +21,7 @@ const About = () => {
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={3} color="white">
+            <Heading as="h2" size="lg" mb={3} color={COLORS.TEXT}>
               Features
             </Heading>
             <List.Root gap={3}>
