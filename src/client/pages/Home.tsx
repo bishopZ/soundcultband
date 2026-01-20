@@ -26,7 +26,13 @@ const Home = () => {
       setVideoReady(true);
     };
 
+    const handleEnded = () => {
+      video.currentTime = 0;
+      video.play();
+    };
+
     video.addEventListener('canplaythrough', handleCanPlayThrough);
+    video.addEventListener('ended', handleEnded);
 
     // Delay video loading slightly to prioritize API requests
     // This ensures events load first on slow connections
@@ -37,6 +43,7 @@ const Home = () => {
     return () => {
       clearTimeout(videoLoadTimeout);
       video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      video.removeEventListener('ended', handleEnded);
     };
   }, []);
 

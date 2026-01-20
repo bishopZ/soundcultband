@@ -5,9 +5,11 @@ export const Footer = () => {
     <Box as="footer" bg="transparent" py={4} px={8} mt="auto">
       <Flex justify="center">
         <Text fontSize="sm" color="gray.300">
-          &copy; {new Date().getFullYear()} Soundcult. All rights reserved.
+          &copy; {new Date().getFullYear()} Soundcult. All rights reserved
           <br />
-          Created by <Link href="https://time2magic.com" target="_blank" color="gray.300">Time 2 Magic</Link>.
+          Created by <Link href="https://time2magic.com" target="_blank" color="gray.300">Time 2 Magic</Link>
+          <br />
+          Only essential cookies used.
         </Text>
       </Flex>
     </Box>
