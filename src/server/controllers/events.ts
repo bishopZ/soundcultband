@@ -66,7 +66,7 @@ export const createEvent: RequestHandler = (req, res) => {
 
     res.status(201).json(newEvent);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create event' });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to create event' });
   }
 };
 
@@ -116,7 +116,7 @@ export const updateEvent: RequestHandler = (req, res) => {
 
     res.json(events[eventIndex]);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update event' });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to update event' });
   }
 };
 
@@ -137,6 +137,6 @@ export const deleteEvent: RequestHandler = (req, res) => {
 
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete event' });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to delete event' });
   }
 };

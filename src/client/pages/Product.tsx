@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Container, Heading, Link, Text, VStack, HStack } from '@chakra-ui/react';
 import EventForm from '../components/ui/EventForm';
+import MarkdownText from '../components/ui/MarkdownText';
 import { Footer } from '../components/layout/footer';
 import { PrivateHeader } from '../components/layout/header';
 import { COLORS } from '../shared/constants';
@@ -188,9 +189,9 @@ const Product = () => {
                         <Text color="gray.300" fontSize="sm">
                           {formatDateTime(event.date, event.time)}
                         </Text>
-                        <Text color="gray.200" mt={2}>
+                        <MarkdownText color="gray.200" mt={2}>
                           {event.description}
-                        </Text>
+                        </MarkdownText>
                       </VStack>
                       <HStack gap={2}>
                         <Button

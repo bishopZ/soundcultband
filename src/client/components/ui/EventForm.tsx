@@ -107,11 +107,12 @@ const EventForm = ({ initialData, onSubmit, onCancel }: EventFormProps) => {
           <Textarea
             value={formData.description}
             onChange={event => { setFormData({ ...formData, description: event.target.value }); }}
-            placeholder="Enter event description"
+            placeholder="Enter event description (Markdown supported: **bold**, [links](url), blank lines)"
             rows={4}
             bg="gray.700"
             color={COLORS.TEXT}
             borderColor="gray.600"
+            autoresize
           />
         </Box>
 

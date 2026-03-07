@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box, Container, Heading, Link, Text, VStack } from '@chakra-ui/react';
+import MarkdownText from '../components/ui/MarkdownText';
 import { Footer } from '../components/layout/footer';
 import { COLORS } from '../shared/constants';
 
@@ -157,7 +158,7 @@ const Home = () => {
                       <Text color="gray.300" fontSize="sm" mb={2}>
                         {formatDateTime(event.date, event.time)}
                       </Text>
-                      <Text color="gray.200">{event.description}</Text>
+                      <MarkdownText color="gray.200">{event.description}</MarkdownText>
                     </Box>
                   ))}
                 </VStack>
