@@ -7,3 +7,9 @@ export const COLORS = {
   TEXT: '#FDFAF7',
 } as const;
 
+export const SOCIAL_LINKS = {
+  instagram: 'https://www.instagram.com/soundcultband/',
+  facebook: 'https://www.facebook.com/p/soundcult-61569910326382/',
+  bandcamp: 'https://soundcultband.bandcamp.com/',
+} as const;
+

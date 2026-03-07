@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box, Container, Heading, Link, Text, VStack } from '@chakra-ui/react';
+import { SiInstagram, SiFacebook, SiBandcamp } from 'react-icons/si';
 import MarkdownText from '../components/ui/MarkdownText';
 import { Footer } from '../components/layout/footer';
-import { COLORS } from '../shared/constants';
+import { COLORS, SOCIAL_LINKS } from '../shared/constants';
 
 interface Event {
   id: string;
@@ -94,6 +95,7 @@ const Home = () => {
         alignItems="center"
         bg={COLORS.BACKGROUND}
         py={0}
+        style={{ height: 866 }}
       >
         {/* Image Fallback */}
         <img
@@ -165,6 +167,35 @@ const Home = () => {
               )}
             </Box>
           )}
+
+          {/* Social Links - 40x40 touch targets, 40px spacing */}
+          <Box as="nav" display="flex" gap="40px" justifyContent="center" flexWrap="wrap">
+            {[
+              { href: SOCIAL_LINKS.instagram, label: 'Instagram', Icon: SiInstagram },
+              { href: SOCIAL_LINKS.facebook, label: 'Facebook', Icon: SiFacebook },
+              { href: SOCIAL_LINKS.bandcamp, label: 'Bandcamp', Icon: SiBandcamp },
+            ].map(({ href, label, Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                color={COLORS.TEXT}
+                width="40px"
+                height="40px"
+                minWidth="40px"
+                minHeight="40px"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                fontSize="40px"
+                _hover={{ opacity: 0.8 }}
+              >
+                <Icon />
+              </Link>
+            ))}
+          </Box>
 
           {/* About and Contact Section */}
           <Box>
