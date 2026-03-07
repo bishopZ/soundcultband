@@ -19,6 +19,7 @@ console.log('__dirname:', __dirname);
 export interface Event {
   id: string;
   venue: string;
+  venueLink?: string;
   date: string; // YYYY-MM-DD format
   time: string; // HH:mm format
   description: string;

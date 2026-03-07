@@ -9,7 +9,7 @@ export const Footer = () => {
           <br />
           Created by <Link href="https://time2magic.com" target="_blank" color="gray.300">Time 2 Magic</Link>
           <br />
-          Only essential cookies used.
+          Only essential cookies used
         </Text>
       </Flex>
     </Box>

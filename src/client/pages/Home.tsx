@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { Box, Container, Heading, Text, VStack } from '@chakra-ui/react';
+import { Box, Container, Heading, Link, Text, VStack } from '@chakra-ui/react';
 import { Footer } from '../components/layout/footer';
 import { COLORS } from '../shared/constants';
 
 interface Event {
   id: string;
   venue: string;
+  venueLink?: string;
   date: string;
   time: string;
   description: string;
@@ -145,7 +146,13 @@ const Home = () => {
                   {events.map(event => (
                     <Box key={event.id}>
                       <Heading as="h3" size="md" mb={2} color={COLORS.TEXT}>
-                        {event.venue}
+                        {event.venueLink ? (
+                          <Link href={event.venueLink} color="inherit" textDecoration="underline">
+                            {event.venue}
+                          </Link>
+                        ) : (
+                          event.venue
+                        )}
                       </Heading>
                       <Text color="gray.300" fontSize="sm" mb={2}>
                         {formatDateTime(event.date, event.time)}
@@ -164,9 +171,7 @@ const Home = () => {
               About
             </Heading>
             <Text fontSize="lg" color="gray.200" lineHeight="tall" mb={6}>
-              Soundcult is a band dedicated to creating powerful and immersive musical experiences.
-              With a unique sound that blends multiple genres, we strive to connect with our audience
-              through meaningful compositions and performances.
+              Hailing from Austin, Texas, soundcult utilizes modular synths, woodwinds, vibes, percussion, and pedal steel to create immersive and exploratory audiovisual rituals, marinated in modal jazz, Krautrock, and electroacoustic traditions. Featuring Thor Harris (Swans, Shearwater), Lyman Hardy (Ed Hall, Total Unicorn), Leila Henley (Stop Motion Orchestra), and Brent Baldwin (too many to mention), soundcult creates expansive, lush, percolating musical landscapes that pulse with energy and hypnotic force.
             </Text>
             <Text fontSize="lg" color="gray.200" lineHeight="tall">
               For inquiries, bookings, and collaborations, please reach out info@[this domain].com.

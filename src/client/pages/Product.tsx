@@ -1,26 +1,22 @@
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Input,
-  Textarea,
-} from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Link, Text, VStack, HStack } from '@chakra-ui/react';
+import EventForm from '../components/ui/EventForm';
 import { Footer } from '../components/layout/footer';
 import { PrivateHeader } from '../components/layout/header';
 import { COLORS } from '../shared/constants';
 
-interface Event {
-  id: string;
+interface FormData {
   venue: string;
+  venueLink?: string;
   date: string;
   time: string;
   description: string;
 }
+
+type Event = FormData & {
+  id: string;
+}
+
 
 /* eslint-disable-next-line max-lines-per-function */
 const Product = () => {
@@ -28,12 +24,6 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
-  const [formData, setFormData] = useState({
-    venue: '',
-    date: '',
-    time: '',
-    description: '',
-  });
   const [showForm, setShowForm] = useState(false);
 
   const fetchEvents = async () => {
@@ -58,12 +48,6 @@ const Product = () => {
   }, []);
 
   const resetForm = () => {
-    setFormData({
-      venue: '',
-      date: '',
-      time: '',
-      description: '',
-    });
     setEditingEvent(null);
     setShowForm(false);
   };
@@ -75,12 +59,6 @@ const Product = () => {
 
   const handleEditClick = (event: Event) => {
     setEditingEvent(event);
-    setFormData({
-      venue: event.venue,
-      date: event.date,
-      time: event.time,
-      description: event.description,
-    });
     setShowForm(true);
   };
 
@@ -105,18 +83,26 @@ const Product = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleFormSubmit = async (formData: FormData) => {
     try {
       setError(null);
       const url = editingEvent ? `/api/events/${editingEvent.id}` : '/api/events';
       const method = editingEvent ? 'PUT' : 'POST';
+
+      const payload = {
+        venue: formData.venue,
+        date: formData.date,
+        time: formData.time,
+        description: formData.description,
+        ...(formData.venueLink != null && formData.venueLink !== '' ? { venueLink: formData.venueLink } : {}),
+      };
 
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -166,86 +152,17 @@ const Product = () => {
           )}
 
           {showForm && (
-            <Box bg="gray.800" p={6} borderRadius="md" border="1px" borderColor="gray.700">
-              <VStack gap={4} align="stretch">
-                  <Heading as="h2" size="lg" color={COLORS.TEXT}>
-                  {editingEvent ? 'Edit Event' : 'Add Event'}
-                </Heading>
-
-                <Box>
-                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
-                    Venue *
-                  </Text>
-                  <Input
-                    value={formData.venue}
-                    onChange={event => { setFormData({ ...formData, venue: event.target.value }); }}
-                    placeholder="Enter venue name"
-                    bg="gray.700"
-                    color={COLORS.TEXT}
-                    borderColor="gray.600"
-                  />
-                </Box>
-
-                <Box>
-                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
-                    Date *
-                  </Text>
-                  <Input
-                    type="date"
-                    value={formData.date}
-                    onChange={event => { setFormData({ ...formData, date: event.target.value }); }}
-                    bg="gray.700"
-                    color={COLORS.TEXT}
-                    borderColor="gray.600"
-                  />
-                </Box>
-
-                <Box>
-                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
-                    Time *
-                  </Text>
-                  <Input
-                    type="time"
-                    value={formData.time}
-                    onChange={event => { setFormData({ ...formData, time: event.target.value }); }}
-                    bg="gray.700"
-                    color={COLORS.TEXT}
-                    borderColor="gray.600"
-                  />
-                </Box>
-
-                <Box>
-                  <Text mb={2} color={COLORS.TEXT} fontWeight="medium">
-                    Description *
-                  </Text>
-                  <Textarea
-                    value={formData.description}
-                    onChange={event => { setFormData({ ...formData, description: event.target.value }); }}
-                    placeholder="Enter event description"
-                    rows={4}
-                    bg="gray.700"
-                    color={COLORS.TEXT}
-                    borderColor="gray.600"
-                  />
-                </Box>
-
-                <HStack gap={2}>
-                  <Button colorScheme="blue" onClick={() => { handleSubmit(); }}>
-                    {editingEvent ? 'Update' : 'Create'}
-                  </Button>
-                  <Button variant="ghost" onClick={resetForm}>
-                    Cancel
-                  </Button>
-                </HStack>
-              </VStack>
-            </Box>
+            <EventForm
+              key={editingEvent?.id ?? 'new'}
+              initialData={editingEvent ?? undefined}
+              onSubmit={(data: FormData) => { void handleFormSubmit(data); }}
+              onCancel={resetForm}
+            />
           )}
 
-          {loading ? (
-            <Text color="gray.200">Loading events...</Text>
-          ) : events.length === 0 ? (
-            <Text color="gray.200">No events found. Add your first event above.</Text>
-          ) : (
+          {loading && <Text color="gray.200">Loading events...</Text>}
+          {!loading && events.length === 0 && <Text color="gray.200">No events found. Add your first event above.</Text>}
+          {!loading && events.length > 0 && (
             <VStack gap={4} align="stretch">
               {events.map(event => (
                 <Box
@@ -260,7 +177,13 @@ const Product = () => {
                     <HStack justify="space-between" align="start">
                       <VStack align="start" gap={1} flex={1}>
                         <Heading as="h3" size="md" color={COLORS.TEXT}>
-                          {event.venue}
+                          {event.venueLink ? (
+                            <Link href={event.venueLink} color="inherit" textDecoration="underline">
+                              {event.venue}
+                            </Link>
+                          ) : (
+                            event.venue
+                          )}
                         </Heading>
                         <Text color="gray.300" fontSize="sm">
                           {formatDateTime(event.date, event.time)}

@@ -12,7 +12,7 @@ export const getAllEvents: RequestHandler = (_, res) => {
     console.log('Returning events:', events);
     res.json(events);
   } catch (error) {
-     
+
     console.error('Error in getAllEvents:', error);
     res.status(500).json({ error: 'Failed to read events' });
   }
@@ -24,14 +24,14 @@ export const getUpcomingEventsPublic: RequestHandler = (_, res) => {
     const events = getUpcomingEvents();
     res.json(events);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to read events' });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to read events' });
   }
 };
 
 // Create new event (admin only)
 export const createEvent: RequestHandler = (req, res) => {
   try {
-    const { venue, date, time, description } = req.body;
+    const { venue, venueLink, date, time, description } = req.body;
 
     if (!venue || !date || !time || !description) {
       res.status(400).json({ error: 'Missing required fields' });
@@ -54,11 +54,13 @@ export const createEvent: RequestHandler = (req, res) => {
     const newEvent: Event = {
       id: randomUUID(),
       venue: venue.trim(),
+      ...(venueLink && typeof venueLink === 'string' ? { venueLink: venueLink.trim() } : {}),
       date,
       time,
       description: description.trim(),
     };
 
+    console.log('Creating new event:', newEvent);
     events.push(newEvent);
     writeEvents(events);
 
@@ -72,7 +74,7 @@ export const createEvent: RequestHandler = (req, res) => {
 export const updateEvent: RequestHandler = (req, res) => {
   try {
     const { id } = req.params;
-    const { venue, date, time, description } = req.body;
+    const { venue, venueLink, date, time, description } = req.body;
 
     if (!venue || !date || !time || !description) {
       res.status(400).json({ error: 'Missing required fields' });
@@ -102,10 +104,13 @@ export const updateEvent: RequestHandler = (req, res) => {
     events[eventIndex] = {
       id,
       venue: venue.trim(),
+      ...(venueLink && typeof venueLink === 'string' ? { venueLink: venueLink.trim() } : {}),
       date,
       time,
       description: description.trim(),
     };
+
+    console.log('Updating event:', events[eventIndex]);
 
     writeEvents(events);
 
