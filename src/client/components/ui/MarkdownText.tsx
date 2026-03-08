@@ -24,7 +24,7 @@ const MarkdownText = ({
       </Text>
     ),
     a: ({ href, children: aChildren }) => (
-      <Link href={href} color="inherit" textDecoration="underline" isExternal>
+      <Link href={href} color="inherit" textDecoration="underline" target="_blank" rel="noopener noreferrer">
         {aChildren}
       </Link>
     ),
