@@ -1,14 +1,3 @@
-/* Put custom CSS here, if needed */
-
-.hero-video-wrapper {
-  /* Scale video 50% larger on small screens (350px–750px) to reduce black letterboxing */
-  @media (max-width: 750px) {
-    transform: scale(1.5);
-  }
-  @media (max-width: 425px) {
-    transform: scale(2);
-  }
-}
 
 :root {
   --color-background: #050803;
@@ -20,4 +9,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-text);
+}
+
+.hero-video-wrapper {
+  max-width: 1440px;
+  height: min(866px, 100vh);
+  min-height: min(866px, 100vh);
+  /* Scale video to reduce black letterboxing */
+  @media (max-width: 1440px) {
+    transform: scale(1);
+  }
+  @media (max-width: 750px) {
+    transform: scale(1.5);
+  }
+  @media (max-width: 425px) {
+    transform: scale(2);
+  }
+  img, video {
+    max-width: 1920px;
+    width: 100%;
+    height: auto;
+    transition: opacity 0.5s ease-in-out;
+  }
 }

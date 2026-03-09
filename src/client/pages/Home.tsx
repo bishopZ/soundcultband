@@ -96,7 +96,6 @@ const Home = () => {
         overflow="hidden"
         bg={COLORS.BACKGROUND}
         py={0}
-        style={{ height: 'min(866px, 100vh)' }}
       >
         <Box
           position="relative"
@@ -112,12 +111,8 @@ const Home = () => {
             loading="lazy"
             fetchPriority="low"
             style={{
-              maxWidth: '1920px',
-              width: '100%',
-              height: 'auto',
               display: videoReady ? 'none' : 'block',
               opacity: videoReady ? 0 : 1,
-              transition: 'opacity 0.5s ease-in-out',
             }}
           />
 
@@ -131,12 +126,8 @@ const Home = () => {
             playsInline
             preload="none"
             style={{
-              maxWidth: '1920px',
-              width: '100%',
-              height: 'auto',
               display: videoReady ? 'block' : 'none',
               opacity: videoReady ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out',
             }}
           />
         </Box>
