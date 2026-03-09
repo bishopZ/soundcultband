@@ -1,0 +1,23 @@
+---
+description: Run linter and type-check after every code change; resolve any errors
+alwaysApply: true
+---
+
+# Lint and Type-Check After Changes
+
+After every code change, run the linter and type-check. Any errors must be resolved.
+
+## Workflow
+
+1. **Run lint:** `npm run lint`
+2. **Run type-check:** `npm run type-check`
+3. **If errors are found:** Fix them before considering the change complete. Do not leave lint or type errors unfixed.
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `npm run lint` | ESLint – reports style and logic issues |
+| `npm run type-check` | TypeScript `tsc --noEmit` – reports type errors |
+
+Do not submit or finalize changes until both pass.

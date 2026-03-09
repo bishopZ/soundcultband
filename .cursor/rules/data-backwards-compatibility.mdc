@@ -1,0 +1,50 @@
+---
+description: Data schema backwards compatibility - prevent production data loss
+globs: src/server/**/*.ts, **/events*.ts
+alwaysApply: false
+---
+
+# Data & Schema Backwards Compatibility
+
+All changes to data schemas and storage must remain compatible with existing production data.
+
+## Rules
+
+1. **Add optional properties only** – New fields must be optional (e.g., `venueLink?: string`). Existing records without the field must still parse and work.
+
+2. **Never add required properties** without a migration – If a new field must be required, add migration logic that:
+   - Reads existing data
+   - Populates the field (or removes invalid records)
+   - Writes back before the new schema is enforced
+
+3. **Never rename or remove properties** without a migration – Existing JSON files will break. Write a one-time migration script that transforms old data.
+
+4. **Do not silently return empty data on read errors** – If `readEvents()` or similar fails (file missing, parse error), log the error clearly and consider surfacing it to the admin. Returning `[]` masks root causes and looks like "no data" instead of a failure.
+
+5. **Validate defensively** – When parsing stored JSON, tolerate extra or missing optional fields. Use runtime validation (e.g., Zod) with `.optional()` or defaults for optional fields.
+
+## Example: Adding an Optional Field
+
+```typescript
+// ✅ GOOD – optional field, old data still works
+export interface Event {
+  id: string;
+  venue: string;
+  venueLink?: string;  // optional
+  date: string;
+  time: string;
+  description: string;
+}
+```
+
+## Example: Adding a Required Field (requires migration)
+
+```typescript
+// ❌ BAD – old events without venueLink would fail validation
+venueLink: string;  // required
+
+// ✅ GOOD – add optional first, migrate data, then make required in a later release
+venueLink?: string;  // optional for now
+// Run migration to populate venueLink for all events
+// Later: venueLink: string;  // required
+```

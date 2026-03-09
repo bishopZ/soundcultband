@@ -5,6 +5,7 @@ import {
   Heading,
   HStack,
   Input,
+  Link,
   Text,
   Textarea,
   VStack,
@@ -107,13 +108,25 @@ const EventForm = ({ initialData, onSubmit, onCancel }: EventFormProps) => {
           <Textarea
             value={formData.description}
             onChange={event => { setFormData({ ...formData, description: event.target.value }); }}
-            placeholder="Enter event description (Markdown supported: **bold**, [links](url), blank lines)"
+            placeholder="Enter event description"
             rows={4}
             bg="gray.700"
             color={COLORS.TEXT}
             borderColor="gray.600"
             autoresize
           />
+          <Text mt={2} fontSize="sm" color="gray.400">
+            Accepts{' '}
+            <Link
+              href="https://www.markdownguide.org/cheat-sheet/"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="blue.300"
+            >
+              Markdown
+            </Link>{' '}
+            format
+          </Text>
         </Box>
 
         <HStack gap={2}>

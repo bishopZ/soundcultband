@@ -93,44 +93,53 @@ const Home = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        overflow="hidden"
         bg={COLORS.BACKGROUND}
         py={0}
-        style={{ height: 866 }}
+        style={{ height: 'min(866px, 100vh)' }}
       >
-        {/* Image Fallback */}
-        <img
-          src="/images/soundcult.png"
-          alt="Soundcult"
-          loading="lazy"
-          fetchPriority="low"
-          style={{
-            maxWidth: '1920px',
-            width: '100%',
-            height: 'auto',
-            display: videoReady ? 'none' : 'block',
-            opacity: videoReady ? 0 : 1,
-            transition: 'opacity 0.5s ease-in-out',
-          }}
-        />
+        <Box
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          className="hero-video-wrapper"
+        >
+          {/* Image Fallback */}
+          <img
+            src="/images/soundcult.png"
+            alt="Soundcult"
+            loading="lazy"
+            fetchPriority="low"
+            style={{
+              maxWidth: '1920px',
+              width: '100%',
+              height: 'auto',
+              display: videoReady ? 'none' : 'block',
+              opacity: videoReady ? 0 : 1,
+              transition: 'opacity 0.5s ease-in-out',
+            }}
+          />
 
-        {/* Video */}
-        <video
-          ref={videoRef}
-          src="/video/GOLD WATER LION_PR.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          style={{
-            maxWidth: '1920px',
-            width: '100%',
-            height: 'auto',
-            display: videoReady ? 'block' : 'none',
-            opacity: videoReady ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out',
-          }}
-        />
+          {/* Video */}
+          <video
+            ref={videoRef}
+            src="/video/GOLD WATER LION_PR.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            style={{
+              maxWidth: '1920px',
+              width: '100%',
+              height: 'auto',
+              display: videoReady ? 'block' : 'none',
+              opacity: videoReady ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out',
+            }}
+          />
+        </Box>
       </Box>
 
       <Container maxW="640px" py={12}>

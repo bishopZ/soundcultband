@@ -115,7 +115,7 @@ export default tseslint.config(
       'no-console': [WARN, { allow: ['warn', 'error'] }],
 
       // Variable naming
-      'id-length': [ERROR, { exceptions: ['_', 's', 'l', 'a', 'b', 'm', 'x', 'y', 'z'] }],
+      'id-length': [ERROR, { exceptions: ['_', 's', 'l', 'a', 'b', 'm', 'x', 'y', 'z', 'p'] }],
     },
   },
 )

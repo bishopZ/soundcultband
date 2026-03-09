@@ -1,4 +1,15 @@
 /* Put custom CSS here, if needed */
+
+.hero-video-wrapper {
+  /* Scale video 50% larger on small screens (350px–750px) to reduce black letterboxing */
+  @media (max-width: 750px) {
+    transform: scale(1.5);
+  }
+  @media (max-width: 425px) {
+    transform: scale(2);
+  }
+}
+
 :root {
   --color-background: #050803;
   --color-text: #FDFAF7;
