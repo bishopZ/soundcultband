@@ -129,11 +129,11 @@ const EventForm = ({ initialData, onSubmit, onCancel }: EventFormProps) => {
           </Text>
         </Box>
 
-        <HStack gap={2}>
-          <Button colorScheme="blue" onClick={handleSubmit}>
+        <HStack gap={10}>
+          <Button onClick={handleSubmit}>
             {isEditing ? 'Update' : 'Create'}
           </Button>
-          <Button variant="ghost" onClick={onCancel}>
+          <Button onClick={onCancel}>
             Cancel
           </Button>
         </HStack>
